@@ -1,0 +1,33 @@
+.data_p{
+    width:1300px;
+    height: 1600px;
+    padding: 2px;
+    clear: none;
+
+}
+.div_setting{
+    margin-right: 10px;
+    width:570px;
+    float: left;
+}
+.div_item {
+    margin-right: 10px;
+    width:570px;
+    float: left;
+}
+textarea.div_setting{
+     background: #f8f8f8;
+     border-bottom: #b7b7b7 1px solid;
+     border-left: #b7b7b7 1px solid;
+     border-right: #b7b7b7 1px solid;
+     border-top: #b7b7b7 1px solid;
+     color: #000000;
+     cursor: text;
+     font-family: "arial";
+     font-size: 9pt;
+     padding: 1px; /*www.52css.com*/
+}
+
+
+
+
