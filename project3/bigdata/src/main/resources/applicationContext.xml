@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd">
+    <!--将组建注册到spring容器中 IOC inverse of control
+    spring 在管理组建的时候，默认是单例的
+
+    DI 依赖注入
+    -->
+    <context:component-scan base-package="net.seehope"></context:component-scan>
+
+    <!--<bean id="servlet1" init-method="init" destroy-method="destory" scope="singleton"
+          class="net.seehope.bigdata.mockspring.Servlet1">
+        <constructor-arg name="age" value="10"></constructor-arg>
+        <property name="age" value="10"></property>
+        <property name="name" value="mt123456"></property>
+        <property name="ids">
+            <list>
+                <value>1</value>
+                <value>2</value>
+                <value>3</value>
+            </list>
+        </property>
+        <property name="ages">
+            <array>
+                <value>3</value>
+                <value>4</value>
+                <value>1</value>
+            </array>
+        </property>
+        <property name="keys">
+            <map>
+                <entry key="usernmae" value="mt"></entry>
+            </map>
+        </property>
+        <property name="demo">
+            <map>
+                <entry key="key1">
+                    <list>
+                        <ref bean="servlet2"></ref>
+                    </list>
+                </entry>
+            </map>
+        </property>
+        <property name="servlet2" ref="servlet2"></property>
+    </bean>
+
+
+    <bean id="servlet2" class="net.seehope.bigdata.mockspring.Servlet2">
+
+    </bean>-->
+</beans>
