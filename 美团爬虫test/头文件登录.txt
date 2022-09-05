@@ -1,0 +1,26 @@
+# This is a sample Python script.
+
+# Press Shift+F10 to execute it or replace it with your code.
+# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+
+
+from selenium import webdriver
+import time
+import requests
+
+
+def denglu_test():
+    url='https://passport.meituan.com/account/unitivelogin?response_code=f615aeda9e7844409a1eb6d54e55dfb9&request_code=1e6585ec66f249efbcec5a6c30b27351&error=%E4%BA%8C%E6%AC%A1%E9%AA%8C%E8%AF%81%E5%A4%B1%E8%B4%A5'
+    headers = {
+        'User-Agent':'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36'
+    }
+    response = requests.get(url,headers=headers)
+    f1 = open('./1.txt','w',encoding='utf-8')
+    f1.write(response.text)
+    c = response.text
+    print(c)
+
+
+
+if __name__ == '__main__':
+    denglu_test()

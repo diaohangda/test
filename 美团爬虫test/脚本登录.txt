@@ -1,0 +1,88 @@
+# This is a sample Python script.
+
+# Press Shift+F10 to execute it or replace it with your code.
+# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+
+
+from selenium import webdriver
+import time
+import random
+import re
+
+def chuangjian_driver():                #创建一个driver对象
+    options = webdriver.ChromeOptions()
+    options.add_experimental_option("excludeSwitches", ["enable-automation"])
+    options.add_experimental_option('useAutomationExtension', False)
+    driver = webdriver.Chrome(options=options, executable_path='./venv/Scripts/chromedriver.exe')
+    driver.execute_cdp_cmd("Page.addScriptToEvaluateOnNewDocument", {
+        "source": """
+            Object.defineProperty(navigator, 'webdriver', {
+              get: () => undefined
+            })
+          """
+    })
+    return driver
+
+def xuanzhe_chengshi():                             #通过网页选择城市，并且返回城市名
+    driver = webdriver.Chrome(R'./venv/Scripts/chromedriver.exe')
+    driver.get("https://www.meituan.com/changecity/")
+    while(True):
+        time.sleep(0.5)
+        F_url = driver.current_url
+        if(re.search('changecity',F_url) == None):
+            time.sleep(2)
+            T_url = driver.current_url
+            break
+    T_url = re.match(r'https://(.*?).meituan',T_url).group(1)
+    driver.close()
+    return T_url
+
+def denglu_test(T_url,driver):
+    url = "https://"+T_url+".meituan.com"        #不带项目的网址
+    driver.get(url+"/meishi/")                    #倒是改为自定义（城市+项目+页数）
+    time.sleep(1)
+    currentPageUrl = driver.current_url                             #获取当前网页url,判断是否需要登录
+    if (currentPageUrl == 'https://passport.meituan.com/account/unitivelogin?service=www&continue=http%3A%2F%2Fwww.meituan.com%2Faccount%2Fsettoken%3Fcontinue%3Dhttp%253A%252F%252F'+T_url+'.meituan.com%252Fmeishi%252F'):
+        '''a = '17688233623'
+        b = 'qwe123456'
+        for i in range(len(a)):            #输入账号
+            driver.find_element_by_id('login-email').send_keys(a[i])
+            sjs = random.random()
+            time.sleep(sjs)
+        for i in range(len(b)):             #输入密码
+            driver.find_element_by_id('login-password').send_keys(b[i])
+            sjs = random.random()
+            time.sleep(sjs)
+        driver.find_element_by_css_selector("input[value='登录']").click()'''            #登录
+        while(True):                                                                   #判断是否要验证
+            time.sleep(2)
+            currentPageUrl = driver.current_url
+            if(currentPageUrl == url+'/meishi/'):
+                break
+        time.sleep(3)
+
+def dianpu_lianjie(driver):
+    menu = driver.find_elements_by_xpath('//div[@class="img"]//a')  # 爬取出当前页面店铺的连接
+    dianpu_lianjie = []
+    for menu in menu:
+        dianpu_lianjie.append(menu.get_attribute("href"))
+    print(dianpu_lianjie)
+    return dianpu_lianjie  # 将当前页面的店铺链接返回
+
+def  fangwen_dianpu():
+    New_dplj = dianpu_lianjie(driver)
+    print(New_dplj[0])
+    driver.get(New_dplj[0])
+    time.sleep(100000)
+
+
+def huoqu_yeshu():
+    return 0
+
+
+
+if __name__ == '__main__':
+    T_url = xuanzhe_chengshi()
+    driver = chuangjian_driver()
+    denglu_test(T_url,driver)
+    fangwen_dianpu()
